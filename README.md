@@ -54,6 +54,7 @@ llm-school/                 ← git root (github.com/BenMSK/llm-school, branch m
 
 | Date | Version | Git tag | What |
 |---|---|---|---|
+| 2026-10-19 | v1.1.1 | `v1.1.1` | Fix: long inline code (such as a 48-character function name) now wraps instead of forcing horizontal scroll on phones. |
 | 2026-10-19 | v1.1 | `v1.1` | 33 figures from the papers added to the 18 reviews (architecture diagrams, key plots), each with a plain-English caption and source link; tap to open full size. Benchmark and timeline data filled in. |
 | 2026-10-19 | v1.0 | `v1.0` | First release. 14 lessons (Week 1: language models, tokens and embeddings, neural nets, attention, the Transformer, pretraining and scaling, inference; Week 2: SFT and RLHF, reasoning models, fine-tuning and quantization, MoE/long context/SSM/multimodal, prompting/RAG/agents, evaluation and safety, the 2024–2026 frontier). 18 paper reviews. 22 widgets. Light/dark theme, phone layout, home-screen icon and manifest. |
 
