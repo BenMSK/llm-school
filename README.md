@@ -14,9 +14,11 @@ llm-school/                 ← git root (github.com/BenMSK/llm-school, branch m
 ├─ index.html               ← the whole site: CSS + content + script. The only source.
 ├─ apple-touch-icon.png     ← iOS home-screen icon 180px (speech bubble + sparkle)
 ├─ icon-192.png, icon-512.png, manifest.webmanifest   ← Android / PWA icon and manifest
+├─ img/papers/*.png         ← 33 figures reproduced from the reviewed papers (max 1400px wide)
 ├─ .nojekyll                ← GitHub Pages serves files as-is
 ├─ tools/htmlcheck.js       ← tag-balance checker   node tools/htmlcheck.js index.html
 ├─ tools/makeicon.js        ← icon rasterizer       node tools/makeicon.js .
+├─ tools/figcrop.py         ← crops "Figure N" out of a paper PDF (needs pymupdf)   python tools/figcrop.py paper.pdf 2 out.png
 └─ README.md
 ```
 
@@ -36,6 +38,7 @@ llm-school/                 ← git root (github.com/BenMSK/llm-school, branch m
 - Every claim worth checking carries a source chip `<a class="src" href="…">Author Year</a>` linking to the primary source (arXiv, official blogs, docs, course pages).
 - Lesson structure: `header.day-h` → `.box.key` (big idea) → sections (`h3`) with widgets (`div.viz`) and figures (`figure.fig` with inline SVG using only CSS-variable colours) → `.box.tip` / `.box.kid` / `.box.note` / `.box.dont` → `.quiz` (`.q[data-a=index]` with four `.opt` buttons and a hidden `.exp`) → `.box.ok` recap → `.refs` → `p.next` (rewritten by script from the next day's title).
 - Paper structure: `header.paper-h` → in one sentence → explain to a 10-year-old → problem → key idea → how it works → results → why it mattered → limitations → how to read the paper → quiz → references.
+- Paper figures: `<figure class="fig pimg"><a href="img/papers/x.png" target="_blank"><img src="img/papers/x.png" width=… height=… alt="…" loading="lazy"></a><figcaption><a class="src" href="arXiv URL">Figure N, Author Year</a> plain-English caption</figcaption></figure>`, placed right after the `h3` of the section it illustrates. Images come from the arXiv HTML rendering when it has them, otherwise `tools/figcrop.py` on the PDF; they are reproduced for study with the source linked, copyright stays with the authors. Keep width ≤ 1400px and the file under ~200 KB.
 - Widget names (all in the `VIZ` object): ngram, history, bpe, embed, neuron, gd, attn, block, posenc, scaling, sampling, kvcache, rlhf, reasoning, lora, quant, moe, rag, agent, bench, timeline.
 - Day ids `d1`…`d14` and paper ids `p-…` are link targets; do not rename them.
 
@@ -49,11 +52,13 @@ llm-school/                 ← git root (github.com/BenMSK/llm-school, branch m
 
 ## Change log
 
-| Date | Version | Commit | What |
+| Date | Version | Git tag | What |
 |---|---|---|---|
-| 2026-10-19 | v1.0 | – | First release. 14 lessons (Week 1: language models, tokens and embeddings, neural nets, attention, the Transformer, pretraining and scaling, inference; Week 2: SFT and RLHF, reasoning models, fine-tuning and quantization, MoE/long context/SSM/multimodal, prompting/RAG/agents, evaluation and safety, the 2024–2026 frontier). 18 paper reviews. 22 widgets. Light/dark theme, phone layout, home-screen icon and manifest. |
+| 2026-10-19 | v1.1 | `v1.1` | 33 figures from the papers added to the 18 reviews (architecture diagrams, key plots), each with a plain-English caption and source link; tap to open full size. Benchmark and timeline data filled in. |
+| 2026-10-19 | v1.0 | `v1.0` | First release. 14 lessons (Week 1: language models, tokens and embeddings, neural nets, attention, the Transformer, pretraining and scaling, inference; Week 2: SFT and RLHF, reasoning models, fine-tuning and quantization, MoE/long context/SSM/multimodal, prompting/RAG/agents, evaluation and safety, the 2024–2026 frontier). 18 paper reviews. 22 widgets. Light/dark theme, phone layout, home-screen icon and manifest. |
 
 ## Known gaps and things to re-check later
 
 - Fast-moving facts (frontier model names, benchmark scores, API prices, context lengths) are stated "as of October 2026" and will age. The `bench` and `timeline` data and Day 14 are the first places to refresh.
-- Writers flagged a few claims they could verify only through secondary sources; they are phrased cautiously in the text. See the project memory notes or grep for "as of" to find the dated statements.
+- Writers flagged a few claims they could verify only through secondary sources; they are phrased cautiously in the text. Grep for "as of" to find the dated statements. Specifically: some author affiliations and paper section numbers were written from memory; a few GPT-3 numbers came via secondary sources; the DeepSeek-R1 RL cost and DeepSeek-V3 GPU-hours come from press and memory of the paper; the o3 PersonQA hallucination rate, GSM1k drop size, exact GPT-5.x release dates, the Stanford AI Index "280×" price-decline figure and the IEA 2026 electricity figures were taken from search snippets rather than the primary documents; the current LMArena leader is deliberately not named.
+- Figure numbering follows the arXiv version linked in each caption (the latest one at build time); if a paper is revised, re-check the numbers.
