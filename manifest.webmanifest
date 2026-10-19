@@ -1,0 +1,16 @@
+{
+  "name": "LLM School",
+  "short_name": "LLM School",
+  "description": "A two-week, plain-English course on how large language models work, with interactive widgets and a paper bible.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F7F7FB",
+  "theme_color": "#4F46E5",
+  "lang": "en",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
